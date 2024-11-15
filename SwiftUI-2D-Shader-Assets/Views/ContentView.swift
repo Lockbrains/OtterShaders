@@ -15,26 +15,6 @@ struct ContentView: View {
     let previewDate = Date()
     
     var body: some View {
-        if #available(iOS 17.0, *) {
-            ZStack {
-                Color(Color.gray)
-                    .edgesIgnoringSafeArea(.all)
-                TimelineView(.animation) { context in
-                    Image("example")
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 224,
-                               height: 314)
-                        .colorEffect(
-                            sampleShaders[currentIndex].1(previewDate)
-                        )
-                }
-            }
-            
-        } else {
-            Text("This feature is not available on this platform.")
-        }
-        
         VStack {
             HStack {
                 Button {
@@ -59,6 +39,29 @@ struct ContentView: View {
             Text(currentShader)
                 .font(.title)
                 .foregroundStyle(.secondary)
+        }
+        
+        if #available(iOS 17.0, *) {
+            ZStack {
+                Color(Color.gray)
+                    .edgesIgnoringSafeArea(.all)
+                
+                TimelineView(.animation) { context in
+                    Image("example")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 224,
+                               height: 314)
+                        .colorEffect(
+                            sampleShaders[currentIndex].1(previewDate)
+                        )
+                        .layerEffect(sampleGaussianBlur(previewDate),
+                                     maxSampleOffset: .init(width: 3, height: 3))
+                }
+            }
+            
+        } else {
+            Text("This feature is not available on this platform.")
         }
     }
 }

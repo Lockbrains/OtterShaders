@@ -37,7 +37,6 @@ using namespace metal;
 
     half4 finalColor = currentColor;
     finalColor.a *= fade;
-   // finalColor.rgb *= finalColor.a;
     
     fadeBurnColor.rgb *= fadeBurnGlow;
     finalColor += fade * fadeBurnColor * currentColor.a * (1.0 - finalColor.a);
