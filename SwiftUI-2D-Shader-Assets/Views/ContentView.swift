@@ -55,8 +55,8 @@ struct ContentView: View {
                         .colorEffect(
                             sampleShaders[currentIndex].1(previewDate)
                         )
-                        .layerEffect(sampleGaussianBlur(previewDate),
-                                     maxSampleOffset: .init(width: 3, height: 3))
+//                        .layerEffect(sampleGaussianBlur(previewDate),
+//                                     maxSampleOffset: .init(width: 3, height: 3))
                 }
             }
             

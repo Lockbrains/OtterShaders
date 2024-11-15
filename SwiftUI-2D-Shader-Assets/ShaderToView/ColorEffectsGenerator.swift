@@ -45,3 +45,50 @@ func dissolveEffect(date: Date,
         .image(fadeTexture)
     )
 }
+
+// MARK: Outline Effect
+@available(iOS 17.0, *)
+func outlineEffect(date: Date,
+                   clipThreshold: Float,
+                   outlineWidth : Float,
+                   outlineMultiplier : Float,
+                   outlineColor: Color) -> Shader {
+ 
+    return ShaderLibrary.outlineEffect(
+        .float(clipThreshold),
+        .float(outlineWidth),
+        .float(outlineMultiplier),
+        .color(outlineColor)
+    )
+}
+
+// MARK: Star Effect
+@available(iOS 17.0, *)
+func starEffect(date: Date,
+                speed: Double,
+                x: CGFloat,
+                y: CGFloat,
+                layers: Float,
+                intensity: Float,
+                starColor: Color) -> Shader {
+    return ShaderLibrary.starEffect(
+        .float2(x, y),
+        .float(abs(date.timeIntervalSinceNow) * speed),
+        .float(layers),
+        .float(intensity),
+        .color(starColor)
+    )
+}
+
+
+// MARK: Glare Effect 1
+@available(iOS 17.0, *)
+func glareEffect1 (date: Date,
+                   speed: Double,
+                   x: CGFloat,
+                   y: CGFloat) -> Shader {
+    return ShaderLibrary.glareEffect1(
+        .float2(x,y),
+        .float(abs(date.timeIntervalSinceNow) * speed)
+    )
+}
