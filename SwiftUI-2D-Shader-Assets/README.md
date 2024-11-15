@@ -5,6 +5,9 @@ There will be 3 types of effects for 2D shaders in SwiftUI:
 - 2. `layerEffect`: if the effect requires information from the background (neighboring pixels, background pixels, etc), find the shader in Layer Effect Section.
 - 3. `distortEffect`: if the effect requires the morph of the shape / vertex manipulations, find the shader in the Distort Effect Section.
 
+Read Apple Developer's documentation for more details: https://developer.apple.com/documentation/swiftui/shader
+
+
 ## How To Use
 
 ## System Requirement
