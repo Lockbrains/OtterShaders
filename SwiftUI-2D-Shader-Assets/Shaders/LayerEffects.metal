@@ -90,3 +90,38 @@ using namespace metal;
     float v = strengthSafeGuard * round(position.y / strengthSafeGuard);
     return layer.sample(float2(u, v));
 }
+
+float intensity(half4 color) {
+    return sqrt((color.x * color.x)
+              + (color.y * color.y)
+              + (color.z * color.z));
+}
+
+// Sobel Operation, see:
+// http://en.wikipedia.org/wiki/Sobel_operator
+[[ stitchable ]] half4 innerlineEffect (float2 position,
+                                        SwiftUI::Layer layer,
+                                        float strength,
+                                        float stepX,
+                                        float stepY,
+                                        float edgeOnly,
+                                        half4 fillColor,
+                                        half4 lineColor) {
+    float topLeft     = intensity(layer.sample(position + float2(-stepX, stepY  )));
+    float left        = intensity(layer.sample(position + float2(-stepX, 0      )));
+    float bottomLeft  = intensity(layer.sample(position + float2(-stepX, -stepY )));
+    float top         = intensity(layer.sample(position + float2(0,      stepY  )));
+    float bottom      = intensity(layer.sample(position + float2(0,      -stepY )));
+    float topRight    = intensity(layer.sample(position + float2(stepX,  stepY  )));
+    float right       = intensity(layer.sample(position + float2(stepX,  0      )));
+    float bottomRight = intensity(layer.sample(position + float2(stepX,  -stepY )));
+    
+    float x =  topLeft + 2.0 * left + bottomLeft - topRight - 2.0 * right - bottomRight;
+    float y = -topLeft - 2.0 * top - topRight + bottomLeft + 2.0 * bottom + bottomRight;
+    float inner = sqrt((x * x) + (y * y));
+    half4 finalColor = layer.sample(position);
+    float originalA = finalColor.a;
+    finalColor = mix(edgeOnly == 1.0 ? fillColor : finalColor, lineColor, inner);
+    
+    return finalColor * originalA;
+}

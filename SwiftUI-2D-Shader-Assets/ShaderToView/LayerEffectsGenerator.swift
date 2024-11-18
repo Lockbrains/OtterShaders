@@ -50,3 +50,21 @@ func pixellateEffect(date: Date,
         .float(strength)
     )
 }
+
+@available(iOS 17.0, *)
+func innerlineEffect(date: Date,
+                     strength: Float,
+                     stepX: Float,
+                     stepY: Float,
+                     edgeOnly: Bool,
+                     fillColor: Color,
+                     lineColor: Color) -> Shader {
+    return ShaderLibrary.innerlineEffect(
+        .float(strength),
+        .float(stepX),
+        .float(stepY),
+        .float(edgeOnly ? 1.0 : 0.0),
+        .color(fillColor),
+        .color(lineColor)
+    )
+}

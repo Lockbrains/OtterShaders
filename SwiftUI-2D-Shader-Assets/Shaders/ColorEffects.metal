@@ -177,3 +177,174 @@ half3 starLayer(float2 uv, float time, half3 starColor) {
     finalColor *= currentColor.a;
     return finalColor;
 }
+
+// MARK: Multiply Effect
+[[ stitchable ]] half4 multiplyEffect (float2 position,
+                                       half4 currentColor,
+                                       float2 size,
+                                       float2 tile,
+                                       float2 offset,
+                                       float2 direction,
+                                       float time,
+                                       texture2d<half, access::sample> texture) {
+    half4 finalColor = currentColor;
+    float2 uv = position / size;
+    constexpr sampler s(address::repeat);
+    
+    finalColor *= texture.sample(s, uv * tile + offset + normalize(direction) * time);
+    finalColor *= currentColor.a;
+    
+    return finalColor;
+    
+}
+
+float remap(float input, float oldMin, float oldMax, float newMin, float newMax) {
+    float percentage = (input - oldMin) / (oldMax - oldMin);
+    return newMin + percentage * (newMax - newMin);
+}
+
+// MARK: Scanlight Effect (3 Scanlines)
+[[stitchable]] half4 scanlightEffect (float2 position,
+                                      half4 currentColor,
+                                      float2 size,
+                                      float time,
+                                      float _ShineRotate,
+                                      float _ShineStartLocation1,
+                                      float _ShineStartLocation2,
+                                      float _ShineStartLocation3,
+                                      float _ShineWidth1,
+                                      float _ShineWidth2,
+                                      float _ShineWidth3,
+                                      float _ShineGlow,
+                                      float _top,
+                                      float _bottom,
+                                      float _opacity,
+                                      half4 _ShineColor1,
+                                      half4 _ShineColor2,
+                                      half4 _ShineColor3) {
+    // constexpr sampler s(address::clamp_to_edge);
+    float2 uv = position / size;
+    
+    // Shine rotation matrix
+    float cosAngle = cos(_ShineRotate);
+    float sinAngle = sin(_ShineRotate);
+    float2x2 rot = float2x2(cosAngle, -sinAngle, sinAngle, cosAngle);
+
+    // Transform uv to apply shine effect
+    float2 uvShine = uv - float2(0.5, 0.5);
+    uvShine = rot * uvShine; // Apply rotation
+    uvShine += float2(0.5, 0.5);
+
+    float _ShineLocation1 = _ShineStartLocation1;
+    float _ShineLocation2 = _ShineStartLocation2;
+    float _ShineLocation3 = _ShineStartLocation3;
+    _ShineLocation1 = fract(_ShineLocation1 + time);
+    _ShineLocation1 = remap(_ShineLocation1, 0, 1, _top, _bottom);
+    _ShineLocation2 = fract(_ShineLocation2 + time);
+    _ShineLocation2 = remap(_ShineLocation2, 0, 1, _top, _bottom);
+    _ShineLocation3 = fract(_ShineLocation3 + time);
+    _ShineLocation3 = remap(_ShineLocation3, 0, 1, _top, _bottom);
+    
+    // Sample the alpha channel from _ShineMask texture
+    float shineMask = 1.0;
+
+    // Calculate distance projection
+    float currentDistanceProjection = (uvShine.x + uvShine.y) / 2.0;
+    float whitePower1 = 1.0 - (abs(currentDistanceProjection - _ShineLocation1) / _ShineWidth1);
+    float whitePower2 = 1.0 - (abs(currentDistanceProjection - _ShineLocation2) / _ShineWidth2);
+    float whitePower3 = 1.0 - (abs(currentDistanceProjection - _ShineLocation3) / _ShineWidth3);
+
+
+    // Calculate shine effect
+    float shineEffect1 = max(sign(currentDistanceProjection - (_ShineLocation1 - _ShineWidth1)), 0.0) *
+                        max(sign((_ShineLocation1 + _ShineWidth1) - currentDistanceProjection), 0.0);
+    float shineEffect2 = max(sign(currentDistanceProjection - (_ShineLocation2 - _ShineWidth2)), 0.0) *
+                        max(sign((_ShineLocation2 + _ShineWidth2) - currentDistanceProjection), 0.0);
+    float shineEffect3 = max(sign(currentDistanceProjection - (_ShineLocation3 - _ShineWidth3)), 0.0) *
+                        max(sign((_ShineLocation3 + _ShineWidth3) - currentDistanceProjection), 0.0);
+
+    // Apply shine to the base color
+    half4 finalColor = currentColor;
+    half3 shineColor1 = half3(_ShineColor1.r, _ShineColor1.g, _ShineColor1.b);
+    half3 shineColor2 = half3(_ShineColor2.r, _ShineColor2.g, _ShineColor2.b);
+    half3 shineColor3 = half3(_ShineColor3.r, _ShineColor3.g, _ShineColor3.b);
+    finalColor.rgb += currentColor.a * whitePower1 * _ShineGlow * shineEffect1 * shineColor1 * shineMask * _opacity;
+    finalColor.rgb += currentColor.a * whitePower2 * _ShineGlow * shineEffect2 * shineColor2 * shineMask * _opacity;
+    finalColor.rgb += currentColor.a * whitePower3 * _ShineGlow * shineEffect3 * shineColor3 * shineMask * _opacity;
+                    
+    
+    half4 res = max(currentColor, finalColor);
+    res *= currentColor.a;
+    return res;
+}
+
+[[stitchable]] half4 scanlightTexturedEffect (float2 position,
+                                              half4 currentColor,
+                                              float2 size,
+                                              float time,
+                                              float _ShineRotate,
+                                              float _ShineStartLocation1,
+                                              float _ShineStartLocation2,
+                                              float _ShineStartLocation3,
+                                              float _ShineWidth1,
+                                              float _ShineWidth2,
+                                              float _ShineWidth3,
+                                              float _ShineGlow,
+                                              float _top,
+                                              float _bottom,
+                                              float opacity,
+                                              texture2d<half, access::sample> texture) {
+    constexpr sampler s(address::repeat);
+    float2 uv = position / size;
+    
+    // Shine rotation matrix
+    float cosAngle = cos(_ShineRotate);
+    float sinAngle = sin(_ShineRotate);
+    float2x2 rot = float2x2(cosAngle, -sinAngle, sinAngle, cosAngle);
+
+    // Transform uv to apply shine effect
+    float2 uvShine = uv - float2(0.5, 0.5);
+    uvShine = rot * uvShine; // Apply rotation
+    uvShine += float2(0.5, 0.5);
+
+    float _ShineLocation1 = _ShineStartLocation1;
+    float _ShineLocation2 = _ShineStartLocation2;
+    float _ShineLocation3 = _ShineStartLocation3;
+    _ShineLocation1 = fract(_ShineLocation1 + time);
+    _ShineLocation1 = remap(_ShineLocation1, 0, 1, _top, _bottom);
+    _ShineLocation2 = fract(_ShineLocation2 + time);
+    _ShineLocation2 = remap(_ShineLocation2, 0, 1, _top, _bottom);
+    _ShineLocation3 = fract(_ShineLocation3 + time);
+    _ShineLocation3 = remap(_ShineLocation3, 0, 1, _top, _bottom);
+    
+    // Sample the alpha channel from _ShineMask texture
+    float shineMask = 1.0;
+
+    // Calculate distance projection
+    float currentDistanceProjection = (uvShine.x + uvShine.y) / 2.0;
+    float whitePower1 = 1.0 - (abs(currentDistanceProjection - _ShineLocation1) / _ShineWidth1);
+    float whitePower2 = 1.0 - (abs(currentDistanceProjection - _ShineLocation2) / _ShineWidth2);
+    float whitePower3 = 1.0 - (abs(currentDistanceProjection - _ShineLocation3) / _ShineWidth3);
+
+
+    // Calculate shine effect
+    float shineEffect1 = max(sign(currentDistanceProjection - (_ShineLocation1 - _ShineWidth1)), 0.0) *
+                        max(sign((_ShineLocation1 + _ShineWidth1) - currentDistanceProjection), 0.0);
+    float shineEffect2 = max(sign(currentDistanceProjection - (_ShineLocation2 - _ShineWidth2)), 0.0) *
+                        max(sign((_ShineLocation2 + _ShineWidth2) - currentDistanceProjection), 0.0);
+    float shineEffect3 = max(sign(currentDistanceProjection - (_ShineLocation3 - _ShineWidth3)), 0.0) *
+                        max(sign((_ShineLocation3 + _ShineWidth3) - currentDistanceProjection), 0.0);
+
+    // Apply shine to the base color
+    half4 finalColor = currentColor;
+    half4 shineColor = half4(texture.sample(s, uv));
+
+    finalColor.rgb += currentColor.a * whitePower1 * _ShineGlow * shineEffect1 * shineColor.rgb * shineMask * opacity;
+    finalColor.rgb += currentColor.a * whitePower2 * _ShineGlow * shineEffect2 * shineColor.rgb * shineMask * opacity;
+    finalColor.rgb += currentColor.a * whitePower3 * _ShineGlow * shineEffect3 * shineColor.rgb * shineMask * opacity;
+                    
+    
+    half4 res = max(currentColor, finalColor);
+    res *= currentColor.a;
+    return res;
+}

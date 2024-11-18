@@ -92,3 +92,101 @@ func glareEffect1 (date: Date,
         .float(abs(date.timeIntervalSinceNow) * speed)
     )
 }
+
+// MARK: Multiply Effect
+@available(iOS 17.0, *)
+func multiplyEffect(date: Date,
+                    speed: Double,
+                    x: Float,
+                    y: Float,
+                    tile: (Float, Float),
+                    offset: (Float, Float),
+                    direction: (Float, Float),
+                    texture: String) -> Shader {
+    return ShaderLibrary.multiplyEffect(
+        .float2(x, y),
+        .float2(tile.0, tile.1),
+        .float2(offset.0, offset.1),
+        .float2(direction.0, direction.1),
+        .float(abs(date.timeIntervalSinceNow) * speed),
+        .image(Image(texture))
+    )
+    
+}
+                    
+// MARK: Scanlight Effect
+@available(iOS 17.0, *)
+func scanlightEffect (date: Date,
+                      speed: Double,
+                      x: Float,
+                      y: Float,
+                      rotate: Float,
+                      startLocation1: Float,
+                      startLocation2: Float,
+                      startLocation3: Float,
+                      scanWidth1: Float,
+                      scanWidth2: Float,
+                      scanWidth3: Float,
+                      scanIntensity: Float,
+                      top: Float,
+                      bottom: Float,
+                      opactiy: Float,
+                      scanColor1: Color,
+                      scanColor2: Color,
+                      scanColor3: Color) -> Shader {
+    
+    return ShaderLibrary.scanlightEffect(
+        .float2(x, y),
+        .float(abs(date.timeIntervalSinceNow) * speed),
+        .float(rotate),
+        .float(startLocation1),
+        .float(startLocation2),
+        .float(startLocation3),
+        .float(scanWidth1),
+        .float(scanWidth2),
+        .float(scanWidth3),
+        .float(scanIntensity),
+        .float(top),
+        .float(bottom),
+        .float(opactiy),
+        .color(scanColor1),
+        .color(scanColor2),
+        .color(scanColor3)
+    )
+}
+
+@available(iOS 17.0, *)
+func scanlightTexturedEffect (date: Date,
+                              speed: Double,
+                              x: Float,
+                              y: Float,
+                              rotate: Float,
+                              startLocation1: Float,
+                              startLocation2: Float,
+                              startLocation3: Float,
+                              scanWidth1: Float,
+                              scanWidth2: Float,
+                              scanWidth3: Float,
+                              scanIntensity: Float,
+                              top: Float,
+                              bottom: Float,
+                              opacity: Float,
+                              texture: String) -> Shader {
+    
+    return ShaderLibrary.scanlightTexturedEffect(
+        .float2(x, y),
+        .float(abs(date.timeIntervalSinceNow) * speed),
+        .float(rotate),
+        .float(startLocation1),
+        .float(startLocation2),
+        .float(startLocation3),
+        .float(scanWidth1),
+        .float(scanWidth2),
+        .float(scanWidth3),
+        .float(scanIntensity),
+        .float(top),
+        .float(bottom),
+        .float(opacity),
+        .image(Image(texture))
+    )
+}

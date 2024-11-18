@@ -9,11 +9,14 @@ import SwiftUI
 import Foundation
 
 let sampleColorEffectShaders: [(String, (Date) -> Shader)] = [
-    ("Trivial Gradient", trivialGradient),
+    ("Scanlight Effect", sampleScanlightTexturedEffect),
+   // ("Trivial Gradient", trivialGradient),
     ("Dissolve", sampleDissolveShader),
     ("Outline Internal", sampleOutlineShader),
     ("Glare Effect 1", sampleGlareEffect1),
     ("Star Effect", sampleStarShader),
+    ("Dynamic Multiply", sampleMultiplyEffect),
+    
 ]
 
 let sampleLayerEffectShaders:  [(String, (Date) -> Shader)] = [
@@ -21,6 +24,7 @@ let sampleLayerEffectShaders:  [(String, (Date) -> Shader)] = [
     ("Outline External", sampleOutlineLayerEffect),
     ("Dynamic Outline", sampleDynamicOutlineLayerEffect),
     ("Pixellate", samplePixellateEffect),
+    ("Innerline", sampleInnerEffect),
 ]
 
 let sampleDistortEffectShaders:  [(String, (Date) -> Shader)] = [
@@ -81,6 +85,39 @@ func sampleGlareEffect1(_ date: Date) -> Shader {
                         y: 314)
 }
 
+@available(iOS 17.0, *)
+func sampleMultiplyEffect(_ date: Date) -> Shader {
+    return multiplyEffect(date: date,
+                          speed: 1.0,
+                          x: 314,
+                          y: 314,
+                          tile: (1, 1),
+                          offset: (0, 0),
+                          direction: (1, 1),
+                          texture: "sampleRazor")
+}
+
+@available(iOS 17.0, *)
+func sampleScanlightTexturedEffect(_ date: Date) -> Shader {
+    return scanlightTexturedEffect(date: date,
+                                   speed: 0.2,
+                                   x: 314,
+                                   y: 314,
+                                   rotate: 0.4,
+                                   startLocation1: 1.0,
+                                   startLocation2: 0.8,
+                                   startLocation3: 0.9,
+                                   scanWidth1: 0.1,
+                                   scanWidth2: 0.02,
+                                   scanWidth3: 0.02,
+                                   scanIntensity: 2.0,
+                                   top: -1.0,
+                                   bottom: 1.0,
+                                   opacity: 0.4,
+                                   texture: "sampleRazor2")
+}
+
+
 
 // MARK: Layer Effects
 @available(iOS 17.0, *)
@@ -115,3 +152,16 @@ func samplePixellateEffect(_ date: Date) -> Shader {
     return pixellateEffect(date: date,
                            strength: 10.0)
 }
+
+@available(iOS 17.0, *)
+func sampleInnerEffect (_ date: Date) -> Shader {
+    return innerlineEffect(date: date,
+                           strength: 5.0,
+                           stepX: 1.0,
+                           stepY: 1.0,
+                           edgeOnly: true,
+                           fillColor: Color.white,
+                           lineColor: Color.red)
+}
+
+
