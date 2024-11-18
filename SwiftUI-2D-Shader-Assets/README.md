@@ -7,7 +7,6 @@ There will be 3 types of effects for 2D shaders in SwiftUI:
 
 Read Apple Developer's documentation for more details: https://developer.apple.com/documentation/swiftui/shader
 
-
 ## How To Use
 To plug the code into your project, you may get the code from the `Shaders` folder (and feel free to edit anything in these shaders written in MSL to meet your own demand!).
 
@@ -47,6 +46,10 @@ Image("example")
         )
     )
 ```
+
+or, if you feel this codestyle makes your code wordy, you may set up file for saving these shaders as constants, just as what we did in the `Shaders/SampleShaders.swift`.
+
+For layer effects, you will additionally need a `maxSampleOffset`. This is telling the shader how many neighboring pixels' infomation it needs to pack. Please refer to the official documentation for more details: https://developer.apple.com/documentation/swiftui/view/layereffect(_:maxsampleoffset:isenabled:). 
 
 
 ## System Requirement
