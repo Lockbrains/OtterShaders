@@ -33,30 +33,56 @@ struct ContentView: View {
                 }
             }
             .padding()
-            Text("Shader Assets")
-                .font(.largeTitle)
-                .bold()
+            
             Text(currentShader)
                 .font(.title)
-                .foregroundStyle(.secondary)
+                .bold()
+            
+            if currentIndex < sampleColorEffectShaders.count {
+                Text("Color Effect")
+                    .font(.headline)
+                    .foregroundStyle(.secondary)
+            } else  if currentIndex < sampleColorEffectShaders.count + sampleLayerEffectShaders.count {
+                Text("Layer Effect")
+                    .font(.headline)
+                    .foregroundStyle(.secondary)
+            } else {
+                Text("Distort Effect")
+                    .font(.headline)
+                    .foregroundStyle(.secondary)
+            }
         }
         
         if #available(iOS 17.0, *) {
             ZStack {
-                Color(Color.gray)
+                LinearGradient(gradient: Gradient(colors: [.white, .gray.opacity(0.8)]),
+                               startPoint: .top,
+                               endPoint: .bottom)
                     .edgesIgnoringSafeArea(.all)
                 
                 TimelineView(.animation) { context in
-                    Image("example")
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 224,
-                               height: 314)
-                        .colorEffect(
-                            sampleShaders[currentIndex].1(previewDate)
-                        )
-//                        .layerEffect(sampleGaussianBlur(previewDate),
-//                                     maxSampleOffset: .init(width: 3, height: 3))
+                    if currentIndex < sampleColorEffectShaders.count {
+                        Image("example")
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 224,
+                                   height: 314)
+                            .colorEffect(
+                                sampleShaders[currentIndex].1(previewDate)
+                            )
+                    } else if currentIndex < sampleColorEffectShaders.count + sampleLayerEffectShaders.count {
+                        Image("example")
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 224,
+                                   height: 314)
+                            .layerEffect(
+                                sampleShaders[currentIndex].1(previewDate),
+                                maxSampleOffset: .init(width: 10, height: 10)
+                            )
+                    } else {
+                        
+                    }
                 }
             }
             

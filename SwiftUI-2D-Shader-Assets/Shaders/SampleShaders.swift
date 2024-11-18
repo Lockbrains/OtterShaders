@@ -8,13 +8,28 @@
 import SwiftUI
 import Foundation
 
-let sampleShaders: [(String, (Date) -> Shader)] = [
+let sampleColorEffectShaders: [(String, (Date) -> Shader)] = [
     ("Trivial Gradient", trivialGradient),
     ("Dissolve", sampleDissolveShader),
-    ("Outline", sampleOutlineShader),
+    ("Outline Internal", sampleOutlineShader),
     ("Glare Effect 1", sampleGlareEffect1),
     ("Star Effect", sampleStarShader),
 ]
+
+let sampleLayerEffectShaders:  [(String, (Date) -> Shader)] = [
+    ("Gaussian Blur", sampleGaussianBlur),
+    ("Outline External", sampleOutlineLayerEffect),
+    ("Dynamic Outline", sampleDynamicOutlineLayerEffect),
+    ("Pixellate", samplePixellateEffect),
+]
+
+let sampleDistortEffectShaders:  [(String, (Date) -> Shader)] = [
+
+]
+
+let sampleShaders = sampleColorEffectShaders
+                  + sampleLayerEffectShaders
+                  + sampleDistortEffectShaders
 
 // MARK: Verifications
 @available(iOS 17.0, *)
@@ -73,3 +88,30 @@ func sampleGaussianBlur(_ date: Date) -> Shader {
     return ShaderLibrary.gaussianBlur()
 }
 
+@available(iOS 17.0, *)
+func sampleOutlineLayerEffect(_ date: Date) -> Shader {
+    return outlineLayerEffect(date: date,
+                              x: 314,
+                              y: 314,
+                              outlineWidth: 4.0,
+                              outlineColor: Color.white,
+                              outlineTex: "sampleRainbow")
+}
+
+@available(iOS 17.0, *)
+func sampleDynamicOutlineLayerEffect(_ date: Date) -> Shader {
+    return dynamicOutlineLayerEffect(date: date,
+                              x: 314,
+                              y: 314,
+                              speed: 0.2,
+                              direction: (1.0, 1.0),
+                              outlineWidth: 4.0,
+                              outlineColor: Color.white,
+                              outlineTex: "sampleRainbow")
+}
+
+@available(iOS 17.0, *)
+func samplePixellateEffect(_ date: Date) -> Shader {
+    return pixellateEffect(date: date,
+                           strength: 10.0)
+}
