@@ -62,7 +62,7 @@ struct ContentView: View {
                 
                 TimelineView(.animation) { context in
                     if currentIndex < sampleColorEffectShaders.count {
-                        Image("sampleCard")
+                        Image("example")
                             .resizable()
                             .aspectRatio(contentMode: .fill)
                             .frame(width: 224,
@@ -71,7 +71,7 @@ struct ContentView: View {
                                 sampleShaders[currentIndex].1(previewDate)
                             )
                     } else if currentIndex < sampleColorEffectShaders.count + sampleLayerEffectShaders.count {
-                        Image("sampleCard")
+                        Image("example")
                             .resizable()
                             .aspectRatio(contentMode: .fill)
                             .frame(width: 224,

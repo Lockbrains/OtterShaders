@@ -48,11 +48,11 @@ struct TestView: View {
                                 sampleBloomEffect(previewDate),
                                 maxSampleOffset: .init(width: 30, height: 30)
                             )
-//                        Image("sampleCard")
-//                            .resizable()
-//                            .aspectRatio(contentMode: .fill)
-//                            .frame(width: 224,
-//                                   height: 314)
+                        Image("sampleCard")
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 224,
+                                   height: 314)
                     }
                 }
             }
