@@ -68,3 +68,15 @@ func innerlineEffect(date: Date,
         .color(lineColor)
     )
 }
+
+@available(iOS 17.0, *)
+func bloomEffect(date: Date,
+                 strength: Float,
+                 threshold: Float,
+                 amount: Float) -> Shader {
+    return ShaderLibrary.bloomEffect(
+        .float(strength),
+        .float(threshold),
+        .float(amount)
+    )
+}

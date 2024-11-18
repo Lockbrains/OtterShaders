@@ -125,3 +125,33 @@ float intensity(half4 color) {
     
     return finalColor * originalA;
 }
+
+[[ stitchable ]] half4 bloomEffect (float2 position,
+                                    SwiftUI::Layer layer,
+                                    float strength,
+                                    float threshold,
+                                    float amount) {
+    
+    half4 result = half4(0.0);
+    half4 color = half4(0.0);
+    half4 original = layer.sample(position);
+    float count = 0.0;
+    
+    for(float i = -strength; i < strength; i += 1.0) {
+        for (float j = -strength; j < strength; j += 1.0 ) {
+            color = layer.sample(position + float2(i, j));
+            
+            float value = max(color.r, max(color.g, color.b));
+            if (value < threshold) {
+                color = half4(0.0);
+            }
+            
+            result += color;
+            count += 1.0;
+        }
+    }
+    
+    result /= count;
+    
+    return original + mix(half4(0.0), result, amount);
+}

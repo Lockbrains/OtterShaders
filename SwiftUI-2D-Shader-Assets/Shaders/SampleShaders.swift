@@ -25,6 +25,7 @@ let sampleLayerEffectShaders:  [(String, (Date) -> Shader)] = [
     ("Dynamic Outline", sampleDynamicOutlineLayerEffect),
     ("Pixellate", samplePixellateEffect),
     ("Innerline", sampleInnerEffect),
+    ("Bloom", sampleBloomEffect),
 ]
 
 let sampleDistortEffectShaders:  [(String, (Date) -> Shader)] = [
@@ -144,7 +145,7 @@ func sampleDynamicOutlineLayerEffect(_ date: Date) -> Shader {
                               direction: (1.0, 1.0),
                               outlineWidth: 4.0,
                               outlineColor: Color.white,
-                              outlineTex: "sampleRainbow")
+                              outlineTex: "sampleRazor")
 }
 
 @available(iOS 17.0, *)
@@ -162,6 +163,14 @@ func sampleInnerEffect (_ date: Date) -> Shader {
                            edgeOnly: true,
                            fillColor: Color.white,
                            lineColor: Color.red)
+}
+
+@available(iOS 17.0, *)
+func sampleBloomEffect (_ date: Date) -> Shader {
+    return bloomEffect(date: date,
+                       strength: 15.0,
+                       threshold: 0.5,
+                       amount: 0.5)
 }
 
 
