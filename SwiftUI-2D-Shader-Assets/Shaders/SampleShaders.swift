@@ -23,13 +23,14 @@ let sampleLayerEffectShaders:  [(String, (Date) -> Shader)] = [
     ("Gaussian Blur", sampleGaussianBlur),
     ("Outline External", sampleOutlineLayerEffect),
     ("Dynamic Outline", sampleDynamicOutlineLayerEffect),
+    ("Polar Outline", samplePolarOutlineLayerEffect),
     ("Pixellate", samplePixellateEffect),
     ("Innerline", sampleInnerEffect),
     ("Bloom", sampleBloomEffect),
 ]
 
 let sampleDistortEffectShaders:  [(String, (Date) -> Shader)] = [
-
+    ("Wave Effect", sampleWaveEffect)
 ]
 
 let sampleShaders = sampleColorEffectShaders
@@ -149,6 +150,18 @@ func sampleDynamicOutlineLayerEffect(_ date: Date) -> Shader {
 }
 
 @available(iOS 17.0, *)
+func samplePolarOutlineLayerEffect(_ date: Date) -> Shader {
+    return polarOutlineLayerEffect(date: date,
+                                   x: 314,
+                                   y: 314,
+                                   speed: 1.0,
+                                   direction: (1.0, 1.0),
+                                   outlineWidth: 6.0,
+                                   outlineColor: Color.white,
+                                   outlineTex: "sampleOutline2")
+}
+
+@available(iOS 17.0, *)
 func samplePixellateEffect(_ date: Date) -> Shader {
     return pixellateEffect(date: date,
                            strength: 10.0)
@@ -174,3 +187,13 @@ func sampleBloomEffect (_ date: Date) -> Shader {
 }
 
 
+// MARK: Distort Effects
+@available(iOS 17.0, *)
+func sampleWaveEffect (_ date: Date) -> Shader {
+    return waveEffect(date: date,
+                      speed: 1.0,
+                      x: 314,
+                      y: 314,
+                      strength: 3.0,
+                      frequency: 3)
+}

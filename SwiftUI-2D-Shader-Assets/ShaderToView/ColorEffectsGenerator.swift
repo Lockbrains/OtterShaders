@@ -155,6 +155,7 @@ func scanlightEffect (date: Date,
     )
 }
 
+// MARK: Scanlight Texture Effect
 @available(iOS 17.0, *)
 func scanlightTexturedEffect (date: Date,
                               speed: Double,

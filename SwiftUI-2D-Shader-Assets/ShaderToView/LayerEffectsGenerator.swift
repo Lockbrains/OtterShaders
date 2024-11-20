@@ -24,6 +24,7 @@ func outlineLayerEffect(date: Date,
     )
 }
 
+// MARK: Dynamic Outline Effect
 @available(iOS 17.0, *)
 func dynamicOutlineLayerEffect(date: Date,
                         x: Float,
@@ -43,6 +44,27 @@ func dynamicOutlineLayerEffect(date: Date,
     )
 }
 
+// MARK: Polar Outline Effect
+@available(iOS 17.0, *)
+func polarOutlineLayerEffect(date: Date,
+                             x: Float,
+                             y: Float,
+                             speed: Double,
+                             direction: (Float, Float),
+                             outlineWidth: Float,
+                             outlineColor: Color,
+                             outlineTex: String) -> Shader {
+    return ShaderLibrary.polarOutlineLayerEffect(
+        .float2(x,y),
+        .float2(direction.0, direction.1),
+        .float(abs(date.timeIntervalSinceNow) * speed),
+        .float(outlineWidth),
+        .color(outlineColor),
+        .image(Image(outlineTex))
+    )
+}
+
+// MARK: Pixellate Effect
 @available(iOS 17.0, *)
 func pixellateEffect(date: Date,
                      strength: Float) -> Shader {
@@ -51,6 +73,7 @@ func pixellateEffect(date: Date,
     )
 }
 
+// MARK: Innerline Effect
 @available(iOS 17.0, *)
 func innerlineEffect(date: Date,
                      strength: Float,
@@ -69,6 +92,7 @@ func innerlineEffect(date: Date,
     )
 }
 
+// MARK: Bloom Effect
 @available(iOS 17.0, *)
 func bloomEffect(date: Date,
                  strength: Float,

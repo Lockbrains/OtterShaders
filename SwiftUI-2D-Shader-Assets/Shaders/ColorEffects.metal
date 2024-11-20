@@ -5,9 +5,7 @@
 //  Created by Lingheng Tony Tao on 11/14/24.
 //
 
-#include <metal_stdlib>
-#include <SwiftUI/SwiftUI_Metal.h>
-using namespace metal;
+#include "Common.metal"
 
 /// Simply note that from Apple Developer documentation, for a shader function to act as a fill pattern,
 /// it must have a function signature matching:
@@ -70,24 +68,14 @@ using namespace metal;
 // MARK: Star Effect
 // Credit to https://www.shadertoy.com/view/XcVcRh
 // the rotation matrix
-float2x2 rot(float a) {
-    float sinA = sin(a);
-    float cosA = cos(a);
-    return float2x2(cosA, -sinA, sinA, cosA);
-}
 
-float hash21(float2 p) {
-    p = fract(p * float2(424.34, 342.21));
-    p += dot(p, p + 34.32);
-    return fract(p.x * p.y);
-}
 
 float star(float2 uv, float flare) {
     float d = length(uv);
     float m = 0.05/d;
     float rays = max(0.0, 1.0 - abs(uv.x * uv.y * 1000.0));
     m += rays * flare;
-    uv *= rot(M_PI_F / 4.0);
+    uv *= rotateMatrix(M_PI_F / 4.0);
     
     rays = max(0.0, 1.0 - abs(uv.x * uv.y * 1000.0));
     m += rays * 0.3 * flare;
@@ -134,7 +122,7 @@ half3 starLayer(float2 uv, float time, half3 starColor) {
     float2 uv = position / size;
     float t = time * 0.02;
     
-    uv *= rot(t);
+    uv *= rotateMatrix(t);
     
     half3 col = half3(0.0);
     

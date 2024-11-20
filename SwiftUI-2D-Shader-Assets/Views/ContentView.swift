@@ -81,7 +81,15 @@ struct ContentView: View {
                                 maxSampleOffset: .init(width: 10, height: 10)
                             )
                     } else {
-                        
+                        Image("example")
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 224,
+                                   height: 314)
+                            .distortionEffect(
+                                sampleShaders[currentIndex].1(previewDate),
+                                maxSampleOffset: .init(width: 10, height: 10)
+                            )
                     }
                 }
             }
