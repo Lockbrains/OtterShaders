@@ -8,6 +8,21 @@
 import SwiftUI
 import Foundation
 
+// MARK: Gaussian Blur
+@available(iOS 17.0, *)
+func gaussianBlurEffect(date: Date,
+                        x: Float,
+                        y: Float,
+                        intensity: Float,
+                        blurSize: Float) -> Shader{
+    return ShaderLibrary.gaussianBlurEffect(
+        .float2(x,y),
+        .float(intensity),
+        .float(blurSize)
+    )
+    
+}
+
 // MARK: OutlineLayerEffect
 @available(iOS 17.0, *)
 func outlineLayerEffect(date: Date,

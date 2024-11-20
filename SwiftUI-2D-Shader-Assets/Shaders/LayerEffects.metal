@@ -7,23 +7,43 @@
 
 #include "Common.metal"
 
+// MARK: Gaussian Blur
+[[ stitchable ]] half4 gaussianBlurEffect(float2 position,
+                                          SwiftUI::Layer layer,
+                                          float2 size,
+                                          float intensity,
+                                          float blurSize) {
+        half4 blurredColor = half4(0.0);
+        
+        // Calculate weights for the Gaussian kernel
+        int radiusInt = int(blurSize);
+        float sigma = blurSize * 0.5;
+        float sigma2 = 2.0 * sigma * sigma;
+        float normalization = 1.0 / (sqrt(2.0 * M_PI_F) * sigma);
 
-// Reference: https://www.cnblogs.com/jerrywossion/p/18090457
-[[ stitchable ]] half4 gaussianBlur(float2 position,
-                                    SwiftUI::Layer layer) {
-    return
-    layer.sample(position) * 0.0707355 +
-    layer.sample(position + float2(-1, -1)) * 0.0453542 +
-    layer.sample(position + float2(0, -1)) * 0.0566406 +
-    layer.sample(position + float2(1, -1)) * 0.0453542 +
-    layer.sample(position + float2(-1, 0)) * 0.0566406 +
-    layer.sample(position + float2(1, 0)) * 0.0566406 +
-    layer.sample(position + float2(-1, 1)) * 0.0453542 +
-    layer.sample(position + float2(0, 1)) * 0.0566406 +
-    layer.sample(position + float2(1, 1)) * 0.0453542;
+        float totalWeight = 0.0;
+
+        // Accumulate weights and color values
+        for (int x = -radiusInt; x <= radiusInt; x++) {
+            for (int y = -radiusInt; y <= radiusInt; y++) {
+                float2 offset = float2(x, y);
+                float weight = normalization * exp(-(x * x + y * y) / sigma2);
+                totalWeight += weight;
+
+                half4 sampleColor = layer.sample(position + offset);
+                blurredColor += sampleColor * half(weight);
+            }
+        }
+
+        // Normalize the accumulated color by the total weight
+        blurredColor /= half(totalWeight);
+
+        // Blend the original color with the blurred color using intensity
+        return blurredColor;
 }
 
 
+// MARK: Outline Layer Effect
 [[ stitchable ]] half4 outlineLayerEffect(float2 position,
                                           SwiftUI::Layer layer,
                                           float2 size,
@@ -51,6 +71,7 @@
     return resColor;
 }
 
+// MARK: Dynamic Outline Effect
 [[ stitchable ]] half4 dynamicOutlineLayerEffect(float2 position,
                                           SwiftUI::Layer layer,
                                           float2 size,
@@ -81,6 +102,7 @@
     return resColor;
 }
 
+// MARK: Polar Outline Effect
 [[ stitchable ]] half4 polarOutlineLayerEffect(float2 position,
                                                SwiftUI::Layer layer,
                                                float2 size,
@@ -111,6 +133,7 @@
     return resColor;
 }
 
+// MARK: Pixellate Effect
 [[ stitchable ]] half4 pixellateEffect (float2 position,
                                         SwiftUI::Layer layer,
                                         float strength) {
@@ -126,6 +149,7 @@ float intensity(half4 color) {
               + (color.z * color.z));
 }
 
+// MARK: Innerline Effect
 // Sobel Operation, see:
 // http://en.wikipedia.org/wiki/Sobel_operator
 [[ stitchable ]] half4 innerlineEffect (float2 position,
@@ -155,6 +179,7 @@ float intensity(half4 color) {
     return finalColor * originalA;
 }
 
+// MARK: Bloom Effect
 [[ stitchable ]] half4 bloomEffect (float2 position,
                                     SwiftUI::Layer layer,
                                     float strength,

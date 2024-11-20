@@ -124,7 +124,11 @@ func sampleScanlightTexturedEffect(_ date: Date) -> Shader {
 // MARK: Layer Effects
 @available(iOS 17.0, *)
 func sampleGaussianBlur(_ date: Date) -> Shader {
-    return ShaderLibrary.gaussianBlur()
+    return gaussianBlurEffect(date: date,
+                              x: 314,
+                              y: 314,
+                              intensity: 2.0,
+                              blurSize: 15.0)
 }
 
 @available(iOS 17.0, *)
