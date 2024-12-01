@@ -7,26 +7,26 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		FACE846B2CE6B50300A1E06E /* SwiftUI-2D-Shader-Assets.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SwiftUI-2D-Shader-Assets.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FACE846B2CE6B50300A1E06E /* OtterShaders.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OtterShaders.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		FA8834AB2CFD0F7B00216858 /* Exceptions for "SwiftUI-2D-Shader-Assets" folder in "SwiftUI-2D-Shader-Assets" target */ = {
+		FA8834AB2CFD0F7B00216858 /* Exceptions for "OtterShaders" folder in "OtterShaders" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
 			);
-			target = FACE846A2CE6B50300A1E06E /* SwiftUI-2D-Shader-Assets */;
+			target = FACE846A2CE6B50300A1E06E /* OtterShaders */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		FACE846D2CE6B50300A1E06E /* SwiftUI-2D-Shader-Assets */ = {
+		FACE846D2CE6B50300A1E06E /* OtterShaders */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				FA8834AB2CFD0F7B00216858 /* Exceptions for "SwiftUI-2D-Shader-Assets" folder in "SwiftUI-2D-Shader-Assets" target */,
+				FA8834AB2CFD0F7B00216858 /* Exceptions for "OtterShaders" folder in "OtterShaders" target */,
 			);
-			path = "SwiftUI-2D-Shader-Assets";
+			path = OtterShaders;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -45,7 +45,7 @@
 		FACE84622CE6B50300A1E06E = {
 			isa = PBXGroup;
 			children = (
-				FACE846D2CE6B50300A1E06E /* SwiftUI-2D-Shader-Assets */,
+				FACE846D2CE6B50300A1E06E /* OtterShaders */,
 				FACE846C2CE6B50300A1E06E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -53,7 +53,7 @@
 		FACE846C2CE6B50300A1E06E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				FACE846B2CE6B50300A1E06E /* SwiftUI-2D-Shader-Assets.app */,
+				FACE846B2CE6B50300A1E06E /* OtterShaders.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -61,9 +61,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		FACE846A2CE6B50300A1E06E /* SwiftUI-2D-Shader-Assets */ = {
+		FACE846A2CE6B50300A1E06E /* OtterShaders */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = FACE84792CE6B50400A1E06E /* Build configuration list for PBXNativeTarget "SwiftUI-2D-Shader-Assets" */;
+			buildConfigurationList = FACE84792CE6B50400A1E06E /* Build configuration list for PBXNativeTarget "OtterShaders" */;
 			buildPhases = (
 				FACE84672CE6B50300A1E06E /* Sources */,
 				FACE84682CE6B50300A1E06E /* Frameworks */,
@@ -74,13 +74,13 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				FACE846D2CE6B50300A1E06E /* SwiftUI-2D-Shader-Assets */,
+				FACE846D2CE6B50300A1E06E /* OtterShaders */,
 			);
-			name = "SwiftUI-2D-Shader-Assets";
+			name = OtterShaders;
 			packageProductDependencies = (
 			);
 			productName = "SwiftUI-2D-Shader-Assets";
-			productReference = FACE846B2CE6B50300A1E06E /* SwiftUI-2D-Shader-Assets.app */;
+			productReference = FACE846B2CE6B50300A1E06E /* OtterShaders.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -98,7 +98,7 @@
 					};
 				};
 			};
-			buildConfigurationList = FACE84662CE6B50300A1E06E /* Build configuration list for PBXProject "SwiftUI-2D-Shader-Assets" */;
+			buildConfigurationList = FACE84662CE6B50300A1E06E /* Build configuration list for PBXProject "OtterShaders" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -112,7 +112,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				FACE846A2CE6B50300A1E06E /* SwiftUI-2D-Shader-Assets */,
+				FACE846A2CE6B50300A1E06E /* OtterShaders */,
 			);
 		};
 /* End PBXProject section */
@@ -264,17 +264,18 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"SwiftUI-2D-Shader-Assets/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"OtterShaders/Preview Content\"";
 				DEVELOPMENT_TEAM = 79ZZR64D7P;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "SwiftUI-2D-Shader-Assets/Info.plist";
+				INFOPLIST_FILE = OtterShaders/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Otter Shaders";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -295,17 +296,18 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"SwiftUI-2D-Shader-Assets/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"OtterShaders/Preview Content\"";
 				DEVELOPMENT_TEAM = 79ZZR64D7P;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "SwiftUI-2D-Shader-Assets/Info.plist";
+				INFOPLIST_FILE = OtterShaders/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Otter Shaders";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -322,7 +324,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		FACE84662CE6B50300A1E06E /* Build configuration list for PBXProject "SwiftUI-2D-Shader-Assets" */ = {
+		FACE84662CE6B50300A1E06E /* Build configuration list for PBXProject "OtterShaders" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				FACE84772CE6B50400A1E06E /* Debug */,
@@ -331,7 +333,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		FACE84792CE6B50400A1E06E /* Build configuration list for PBXNativeTarget "SwiftUI-2D-Shader-Assets" */ = {
+		FACE84792CE6B50400A1E06E /* Build configuration list for PBXNativeTarget "OtterShaders" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				FACE847A2CE6B50400A1E06E /* Debug */,

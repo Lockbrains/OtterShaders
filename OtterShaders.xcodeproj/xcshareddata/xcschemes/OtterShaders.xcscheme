@@ -16,9 +16,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "FACE846A2CE6B50300A1E06E"
-               BuildableName = "SwiftUI-2D-Shader-Assets.app"
-               BlueprintName = "SwiftUI-2D-Shader-Assets"
-               ReferencedContainer = "container:SwiftUI-2D-Shader-Assets.xcodeproj">
+               BuildableName = "OtterShaders.app"
+               BlueprintName = "OtterShaders"
+               ReferencedContainer = "container:OtterShaders.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -45,9 +45,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "FACE846A2CE6B50300A1E06E"
-            BuildableName = "SwiftUI-2D-Shader-Assets.app"
-            BlueprintName = "SwiftUI-2D-Shader-Assets"
-            ReferencedContainer = "container:SwiftUI-2D-Shader-Assets.xcodeproj">
+            BuildableName = "OtterShaders.app"
+            BlueprintName = "OtterShaders"
+            ReferencedContainer = "container:OtterShaders.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -62,9 +62,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "FACE846A2CE6B50300A1E06E"
-            BuildableName = "SwiftUI-2D-Shader-Assets.app"
-            BlueprintName = "SwiftUI-2D-Shader-Assets"
-            ReferencedContainer = "container:SwiftUI-2D-Shader-Assets.xcodeproj">
+            BuildableName = "OtterShaders.app"
+            BlueprintName = "OtterShaders"
+            ReferencedContainer = "container:OtterShaders.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
