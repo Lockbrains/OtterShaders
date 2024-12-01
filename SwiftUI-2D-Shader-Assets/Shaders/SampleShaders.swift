@@ -13,7 +13,7 @@ let sampleColorEffectShaders: [(String, (Date) -> Shader)] = [
    // ("Trivial Gradient", trivialGradient),
     ("Dissolve", sampleDissolveShader),
     ("Outline Internal", sampleOutlineShader),
-    ("Glare Effect 1", sampleGlareEffect1),
+    ("Glare Effect", sampleGlareEffect1),
     ("Star Effect", sampleStarShader),
     ("Dynamic Multiply", sampleMultiplyEffect),
     
