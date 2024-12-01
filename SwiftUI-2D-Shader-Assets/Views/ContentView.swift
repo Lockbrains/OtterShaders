@@ -16,12 +16,14 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
+            LinearGradient(gradient: Gradient(colors: [.white, .colorTheme.opacity(0.5)]),
+                                           startPoint: .bottom,
+                                           endPoint: .top)
+                                .edgesIgnoringSafeArea(.all)
+                                .offset(y: -100)
+            
             VStack {
-                Image("background")
-                    .resizable()
-                    .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height - 100)
-                    .aspectRatio(contentMode: .fit)
-                    .opacity(0.2)
+
                 
                 Spacer()
                 HStack(alignment: .bottom) {
@@ -66,16 +68,15 @@ struct ContentView: View {
                 }
                 .padding()
                 .background(.white)
-                Spacer()
-                    .frame(height: 70)
             }
             
             VStack(spacing: 8.0) {
                 if #available(iOS 17.0, *) {
                     ZStack {
-                        RoundedRectangle(cornerRadius: 40)
-                            .fill(Material.thinMaterial)
-                            .frame(width: 300, height: 450)
+                        Image("background")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 400, height: 480)
                             .shadow(radius: 4.0)
                         
                         TimelineView(.animation) { context in
@@ -113,7 +114,7 @@ struct ContentView: View {
                         
                         VStack {
                             Spacer()
-                                .frame(height: 200)
+                                .frame(height: 550)
                             Image("exampleLabel")
                                 .shadow(radius: 2.0, x:0, y: 2)
                             
