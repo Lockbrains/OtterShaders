@@ -63,9 +63,9 @@ func sampleDissolveShader(_ date: Date) -> Shader {
 func sampleOutlineShader(_ date: Date) -> Shader {
     return outlineEffect(date: date,
                          clipThreshold: 1.0,
-                         outlineWidth : 0.9999,
-                         outlineMultiplier : 2.0,
-                         outlineColor: Color.white)
+                         outlineWidth : 0.99999,
+                         outlineMultiplier : 10.0,
+                         outlineColor: Color.black)
 }
 
 @available(iOS 17.0, *)

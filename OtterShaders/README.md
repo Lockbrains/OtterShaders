@@ -1,4 +1,4 @@
-# SwiftUI 2D Shader Assets 
+# Otter Shaders Documentation
 
 There will be 3 types of effects for 2D shaders in SwiftUI:
 - 1. `colorEffect`: if the effect ONLY changes color, find the shader in Color Effect Section

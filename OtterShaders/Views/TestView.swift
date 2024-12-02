@@ -41,7 +41,10 @@ struct TestView: View {
                                 sampleScanlightTexturedEffect(previewDate)
                             )
                             .layerEffect(
-                                sampleDynamicOutlineLayerEffect(previewDate),
+                                gaussianBlurEffect(date: previewDate,
+                                                   x: 224, y: 314,
+                                                   intensity: 2.0,
+                                                   blurSize: 5),
                                 maxSampleOffset: .init(width: 10, height: 10)
                             )
                             .layerEffect(
