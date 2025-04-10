@@ -45,7 +45,6 @@
 }
 
 // MARK: Outline Effects
-// I recommend using outlineLayerEffect instead of this
 [[ stitchable ]] half4 outlineEffect (float2 position,
                                       half4 currentColor,
                                       float clipThreshold,
@@ -133,7 +132,6 @@ half3 starLayer(float2 uv, float time, half3 starColor) {
         col += starLayer(uv * scale + i * 454.23, time, starColor.rgb) * fade;
     }
     
-//    return half4(col,1);
     half4 finalColor = currentColor;
     finalColor += intensity * half4(col, 0);
     return finalColor * currentColor.a;

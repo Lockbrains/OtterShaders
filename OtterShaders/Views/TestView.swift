@@ -40,17 +40,6 @@ struct TestView: View {
                             .colorEffect(
                                 sampleScanlightTexturedEffect(previewDate)
                             )
-                            .layerEffect(
-                                gaussianBlurEffect(date: previewDate,
-                                                   x: 224, y: 314,
-                                                   intensity: 2.0,
-                                                   blurSize: 5),
-                                maxSampleOffset: .init(width: 10, height: 10)
-                            )
-                            .layerEffect(
-                                sampleBloomEffect(previewDate),
-                                maxSampleOffset: .init(width: 30, height: 30)
-                            )
                         Image("sampleCard")
                             .resizable()
                             .aspectRatio(contentMode: .fill)
