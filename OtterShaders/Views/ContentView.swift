@@ -10,6 +10,7 @@ import SwiftUI
 struct ContentView: View {
     @State private var currentShader: String = sampleShaders[0].0
     @State private var currentIndex: Int = 0
+    @State private var showInstructions = false
     
     
     let previewDate = Date()
@@ -23,7 +24,6 @@ struct ContentView: View {
                                 .offset(y: -100)
             
             VStack {
-
                 
                 Spacer()
                 HStack(alignment: .bottom) {
@@ -132,11 +132,113 @@ struct ContentView: View {
                 
                 
             }
+            
+            // 右上角帮助按钮
+            VStack {
+                HStack {
+                    Spacer()
+                    Button {
+                        showInstructions = true
+                    } label: {
+                        Image(systemName: "questionmark.circle")
+                            .font(.system(size: 24))
+                            .foregroundStyle(.colorTheme)
+                            .padding()
+                    }
+                }
+                .padding(.trailing)
+                .padding(.top, 8)
+                
+                Spacer()
+            }
         }
-        
-        
-        
-        
+        .sheet(isPresented: $showInstructions) {
+            InstructionsView()
+        }
+    }
+}
+
+struct InstructionsView: View {
+    @Environment(\.dismiss) var dismiss
+    
+    var body: some View {
+        NavigationView {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 20) {
+                    Text("Instructions")
+                        .font(Font.custom("Grandstander-Black", size: 32))
+                        .foregroundStyle(.colorTheme)
+                        .padding(.bottom, 10)
+                    
+                    VStack(alignment: .leading, spacing: 16) {
+                        InstructionSection(
+                            title: "Shader Effect Types",
+                            content: """
+                            • Color Effect: Effects that only change colors
+                            • Layer Effect: Effects that require background information (blur, outline, etc.)
+                            • Distort Effect: Effects that change shape/vertex manipulations
+                            """
+                        )
+                        
+                        InstructionSection(
+                            title: "How to Browse",
+                            content: """
+                            • Use the left and right arrow buttons to browse different Shader effects
+                            • The top displays the current effect name and type
+                            """
+                        )
+                        
+                        InstructionSection(
+                            title: "System Requirements",
+                            content: """
+                            • Requires iOS 17.0 or later
+                            • Effects may not display on lower versions
+                            """
+                        )
+                        
+                        InstructionSection(
+                            title: "Getting the Code",
+                            content: """
+                            • Shader code is located in the Shaders folder
+                            • You can use these Shaders directly in your project
+                            • You can also use the generators in the ShaderToView folder
+                            """
+                        )
+                    }
+                    .padding()
+                }
+                .padding()
+            }
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("Done") {
+                        dismiss()
+                    }
+                    .foregroundStyle(.colorTheme)
+                }
+            }
+        }
+    }
+}
+
+struct InstructionSection: View {
+    let title: String
+    let content: String
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text(title)
+                .font(Font.custom("Grandstander-Black", size: 20))
+                .foregroundStyle(.colorTheme)
+            
+            Text(content)
+                .font(Font.custom("Glory-Regular", size: 16))
+                .foregroundStyle(.primary)
+        }
+        .padding()
+        .background(Color(.systemGray6))
+        .cornerRadius(12)
     }
 }
 

@@ -11,6 +11,20 @@ import SwiftUI
 struct SwiftUI_2D_Shader_AssetsApp: App {
     var body: some Scene {
         WindowGroup {
+            RootView()
+        }
+    }
+}
+
+struct RootView: View {
+    @State private var showWelcome = true
+    
+    var body: some View {
+        if showWelcome {
+            WelcomeView {
+                showWelcome = false
+            }
+        } else {
             ContentView()
         }
     }
